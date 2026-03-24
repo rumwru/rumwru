@@ -168,6 +168,22 @@
             display: block;
         }
         
+        section.mobile-visible {
+            display: block !important;
+            margin-bottom: 20px;
+            padding: 20px !important;
+            background: transparent !important;
+            border: none !important;
+        }
+        
+        section.mobile-collapsed > *:not(h2) {
+            display: none;
+        }
+        
+        section h2 {
+            cursor: default;
+        }
+        
         .progress-indicator {
             display: flex;
             gap: 8px;
@@ -518,6 +534,164 @@
                 opacity: 1;
             }
         }
+        
+        /* ==== MOBILE RESPONSIVE DESIGN ==== */
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 20px 40px;
+                border-bottom: none;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .container {
+                padding: 20px 10px;
+                min-height: auto;
+            }
+            
+            .navigation-buttons {
+                display: none;
+            }
+            
+            .progress-indicator {
+                display: none;
+            }
+            
+            section.mobile-visible {
+                padding: 20px !important;
+                margin-bottom: 0;
+            }
+            
+            section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+                padding-bottom: 12px;
+                border-bottom: 2px solid var(--accent);
+                background: transparent;
+                cursor: pointer;
+                user-select: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            section h2::after {
+                content: '▶';
+                font-size: 0.6rem;
+                position: static;
+                width: auto;
+                height: auto;
+                background: none;
+                margin-left: 10px;
+                transition: transform 0.3s ease;
+            }
+            
+            section.mobile-collapsed h2::after {
+                content: '▶';
+            }
+            
+            section:not(.mobile-collapsed) h2::after {
+                transform: rotate(90deg);
+            }
+            
+            #about {
+                background: transparent;
+                border: none;
+                padding: 20px !important;
+            }
+            
+            #about p {
+                font-size: 0.95rem;
+            }
+            
+            #contact {
+                background: transparent;
+                border: none;
+                padding: 20px !important;
+            }
+            
+            #contact > p {
+                font-size: 0.95rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .project {
+                padding: 20px;
+            }
+            
+            .social-links {
+                gap: 10px;
+                max-width: 100%;
+            }
+            
+            .social-links a {
+                padding: 12px 16px;
+                min-height: 40px;
+                font-size: 0.8rem;
+            }
+            
+            .social-links a svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .skill-tag {
+                min-height: 50px;
+                padding: 12px 10px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 50px 15px 30px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            section.mobile-visible {
+                padding: 15px !important;
+            }
+            
+            section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .social-links {
+                gap: 8px;
+            }
+            
+            footer {
+                padding: 30px 15px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -617,7 +791,7 @@
                     LinkedIn
                 </a>
                 <a href="https://github.com/rumwru" title="Check out my GitHub" target="_blank">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     GitHub
                 </a>
                 <a href="https://id.wikipedia.org/wiki/Pengguna:Rumwru" title="Visit Wikipedia" target="_blank">
@@ -625,7 +799,7 @@
                     Wikipedia
                 </a>
                 <a href="https://instagram.com/rumwru" title="Follow on Instagram" target="_blank">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.117.626c-.89.344-1.657.882-2.242 1.466-.585.585-1.122 1.353-1.466 2.242-.293.788-.494 1.659-.626 2.937C.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.626 2.936.344.89.882 1.657 1.466 2.242.585.585 1.353 1.122 2.242 1.466.788.293 1.659.494 2.937.626C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.261 2.936-.626.89-.344 1.657-.882 2.242-1.466.585-.585 1.122-1.353 1.466-2.242.293-.788.494-1.659.626-2.937.057-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.261-2.148-.626-2.936-.344-.89-.882-1.657-1.466-2.242-.585-.585-1.353-1.122-2.242-1.466-.788-.293-1.659-.494-2.937-.626C15.667.015 15.26 0 12 0zm0 2.16c3.203 0 3.585.009 4.849.070 1.171.055 1.805.249 2.227.415.562.217.96.477 1.382.899.422.422.682.82.899 1.382.166.422.36 1.056.415 2.227.061 1.264.07 1.646.07 4.849s-.009 3.585-.07 4.849c-.055 1.171-.249 1.805-.415 2.227-.217.562-.477.96-.899 1.382-.422.422-.82.682-1.382.899-.422.166-1.056.36-2.227.415-1.264.061-1.646.07-4.849.07s-3.585-.009-4.849-.07c-1.171-.055-1.805-.249-2.227-.415-.562-.217-.96-.477-1.382-.899-.422-.422-.682-.82-.899-1.382-.166-.422-.36-1.056-.415-2.227-.061-1.264-.07-1.646-.07-4.849s.009-3.585.07-4.849c.055-1.171.249-1.805.415-2.227.217-.562.477-.96.899-1.382.422-.422.82-.682 1.382-.899.422-.166 1.056-.36 2.227-.415 1.264-.061 1.646-.07 4.849-.07zm0 3.678a5.162 5.162 0 100 10.324 5.162 5.162 0 000-10.324zm0 8.164a3.002 3.002 0 110-6.004 3.002 3.002 0 010 6.004zm5.884-8.346a1.206 1.206 0 100-2.412 1.206 1.206 0 000 2.412z" fill="currentColor"/></svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.117.626c-.89.344-1.657.882-2.242 1.466-.585.585-1.122 1.353-1.466 2.242-.293.788-.494 1.659-.626 2.937C.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.626 2.936.344.89.882 1.657 1.466 2.242.585.585 1.353 1.122 2.242 1.466.788.293 1.659.494 2.937.626C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.261 2.936-.626.89-.344 1.657-.882 2.242-1.466.585-.585 1.122-1.353 1.466-2.242.293-.788.494-1.659.626-2.937.057-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.261-2.148-.626-2.936-.344-.89-.882-1.657-1.466-2.242-.585-.585-1.353-1.122-2.242-1.466-.788-.293-1.659-.494-2.937-.626C15.667.015 15.26 0 12 0zm0 2.16c3.203 0 3.585.009 4.849.07 1.171.055 1.805.249 2.227.415.562.217.96.477 1.382.899.422.422.682.82.899 1.382.166.422.36 1.056.415 2.227.061 1.264.07 1.646.07 4.849s-.009 3.585-.07 4.849c-.055 1.171-.249 1.805-.415 2.227-.217.562-.477.96-.899 1.382-.422.422-.82.682-1.382.899-.422.166-1.056.36-2.227.415-1.264.061-1.646.07-4.849.07s-3.585-.009-4.849-.07c-1.171-.055-1.805-.249-2.227-.415-.562-.217-.96-.477-1.382-.899-.422-.422-.682-.82-.899-1.382-.166-.422-.36-1.056-.415-2.227-.061-1.264-.07-1.646-.07-4.849s.009-3.585.07-4.849c.055-1.171.249-1.805.415-2.227.217-.562.477-.96.899-1.382.422-.422.82-.682 1.382-.899.422-.166 1.056-.36 2.227-.415 1.264-.061 1.646-.07 4.849-.07zm0 3.678a5.162 5.162 0 100 10.324 5.162 5.162 0 000-10.324zm0 8.164a3.002 3.002 0 110-6.004 3.002 3.002 0 010 6.004zm5.884-8.346a1.206 1.206 0 100-2.412 1.206 1.206 0 000 2.412z" fill="currentColor"/></svg>
                     Instagram
                 </a>
                 <a href="https://x.com/rumwru" title="Follow on X" target="_blank">
@@ -650,6 +824,17 @@
         const htmlElement = document.documentElement;
         const sections = ['about', 'projects', 'skills', 'contact'];
         let currentSectionIndex = 0;
+        let isMobileMode = window.innerWidth <= 768;
+        
+        // Detect mobile mode on resize
+        window.addEventListener('resize', () => {
+            const wasMobileMode = isMobileMode;
+            isMobileMode = window.innerWidth <= 768;
+            
+            if (wasMobileMode !== isMobileMode) {
+                location.reload();
+            }
+        });
         
         // Load saved theme preference
         const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -661,17 +846,15 @@
         // Toggle theme on button click
         themeToggle.addEventListener('click', () => {
             htmlElement.classList.toggle('light-mode');
-            
             const isLightMode = htmlElement.classList.contains('light-mode');
             localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-            
-            // Update button icon
             themeToggle.textContent = isLightMode ? '☀️' : '🌙';
         });
         
-        // Initialize progress indicator
+        // Initialize progress indicator (desktop)
         function initializeProgress() {
             const indicator = document.getElementById('progressIndicator');
+            if (!indicator) return;
             sections.forEach((section, index) => {
                 const dot = document.createElement('div');
                 dot.className = 'progress-dot' + (index === 0 ? ' active' : '');
@@ -680,32 +863,26 @@
             });
         }
         
-        // Show section by index
+        // Show section by index (desktop)
         function showSection(index) {
             if (index < 0 || index >= sections.length) return;
             
-            // Hide current section
             const currentSection = document.getElementById(sections[currentSectionIndex]);
             currentSection.classList.remove('active');
             
-            // Update nav links
             document.querySelectorAll('.nav-link').forEach((link, i) => {
                 link.classList.remove('active');
                 if (i === index) link.classList.add('active');
             });
             
-            // Update progress dots
             document.querySelectorAll('.progress-dot').forEach((dot, i) => {
                 dot.classList.remove('active');
                 if (i === index) dot.classList.add('active');
             });
             
-            // Show new section
             currentSectionIndex = index;
             const newSection = document.getElementById(sections[index]);
             newSection.classList.add('active');
-            
-            // Update button states
             updateButtonStates();
         }
         
@@ -713,6 +890,7 @@
         function updateButtonStates() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+            if (!prevBtn || !nextBtn) return;
             
             prevBtn.disabled = currentSectionIndex === 0;
             nextBtn.disabled = currentSectionIndex === sections.length - 1;
@@ -728,24 +906,46 @@
             });
         });
         
+        // Mobile: Toggle section collapse/expand
+        function setupMobileCollapse() {
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const heading = section.querySelector('h2');
+                
+                if (heading) {
+                    heading.addEventListener('click', () => {
+                        section.classList.toggle('mobile-collapsed');
+                    });
+                }
+            });
+        }
+        
         // Previous button
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            if (currentSectionIndex > 0) {
-                showSection(currentSectionIndex - 1);
-            }
-        });
+        const prevBtn = document.getElementById('prevBtn');
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentSectionIndex > 0) {
+                    showSection(currentSectionIndex - 1);
+                }
+            });
+        }
         
         // Next button
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentSectionIndex < sections.length - 1) {
-                showSection(currentSectionIndex + 1);
-            }
-        });
+        const nextBtn = document.getElementById('nextBtn');
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentSectionIndex < sections.length - 1) {
+                    showSection(currentSectionIndex + 1);
+                }
+            });
+        }
         
-        // Keyboard navigation
+        // Keyboard navigation (desktop only)
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') showSection(currentSectionIndex - 1);
-            if (e.key === 'ArrowRight') showSection(currentSectionIndex + 1);
+            if (!isMobileMode) {
+                if (e.key === 'ArrowLeft') showSection(currentSectionIndex - 1);
+                if (e.key === 'ArrowRight') showSection(currentSectionIndex + 1);
+            }
         });
         
         // Initialize Social Links Grid Layout
@@ -754,8 +954,6 @@
             if (!socialLinks) return;
             
             const linkCount = socialLinks.querySelectorAll('a').length;
-            
-            // Find best factor pair (closest to square)
             let bestCols = 1;
             let bestDiff = linkCount;
             
@@ -770,9 +968,12 @@
                 }
             }
             
-            // If divisible by 3, use 3 columns (as per original requirement)
             if (linkCount % 3 === 0) {
                 bestCols = 3;
+            }
+            
+            if (isMobileMode && bestCols > 2) {
+                bestCols = 2;
             }
             
             socialLinks.style.gridTemplateColumns = `repeat(${bestCols}, 1fr)`;
@@ -783,7 +984,6 @@
             const skillsContainer = document.querySelector('.skills-container');
             const skillCount = skillsContainer.querySelectorAll('.skill-tag').length;
             
-            // Find best factor pair (closest to square)
             let bestCols = 1;
             let bestDiff = skillCount;
             
@@ -798,19 +998,40 @@
                 }
             }
             
-            // If divisible by 3, use 3 columns (as per original requirement)
             if (skillCount % 3 === 0) {
                 bestCols = 3;
+            }
+            
+            if (isMobileMode && bestCols > 2) {
+                bestCols = 2;
             }
             
             skillsContainer.style.gridTemplateColumns = `repeat(${bestCols}, 1fr)`;
         }
         
+        // Initialize layout
+        function initializeLayout() {
+            if (isMobileMode) {
+                // Mobile mode: show all sections stacked but COLLAPSED
+                sections.forEach(section => {
+                    const el = document.getElementById(section);
+                    el.classList.add('mobile-visible');
+                    el.classList.add('mobile-collapsed');
+                    el.classList.remove('active');
+                });
+                setupMobileCollapse();
+            } else {
+                // Desktop mode: paginate sections
+                initializeProgress();
+                updateButtonStates();
+                showSection(0);
+            }
+            initializeSkillsGrid();
+            initializeSocialLinksGrid();
+        }
+        
         // Initialize
-        initializeProgress();
-        updateButtonStates();
-        initializeSkillsGrid();
-        initializeSocialLinksGrid();
+        initializeLayout();
     </script>
 </body>
 </html>
