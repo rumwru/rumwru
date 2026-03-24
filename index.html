@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rumwru</title>
+    <style>
+        :root {
+            --bg-primary: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+            --bg-secondary: rgba(0, 212, 255, 0.05);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a8b8;
+            --text-meta: #7a8fa4;
+            --accent: #00d4ff;
+            --accent-dark: #0099ff;
+            --border-color: #2a3f5f;
+            --card-bg: rgba(0, 212, 255, 0.05);
+            --skill-bg: rgba(0, 212, 255, 0.1);
+        }
+        
+        html.light-mode {
+            --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            --bg-secondary: rgba(0, 150, 200, 0.06);
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6c7d;
+            --text-meta: #7f8fa3;
+            --accent: #0078d4;
+            --accent-dark: #106ebe;
+            --border-color: #e0e5eb;
+            --card-bg: rgba(0, 150, 200, 0.06);
+            --skill-bg: rgba(0, 150, 200, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        header {
+            padding: 80px 20px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #0f1419;
+            transform: scale(1.1);
+        }
+        
+        html.light-mode .theme-toggle:hover {
+            color: #ffffff;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        
+        nav {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        nav a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        section {
+            display: none;
+            animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        section.active {
+            display: block;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-dot.active {
+            width: 30px;
+            border-radius: 5px;
+            background: var(--accent);
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+        
+        .nav-button {
+            background: var(--skill-bg);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: var(--accent);
+            color: #0f1419;
+            transform: scale(1.05);
+        }
+        
+        html.light-mode .nav-button:hover {
+            color: #ffffff;
+        }
+        
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--accent);
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+        
+        /* ==== ABOUT SECTION ==== */
+        #about {
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        #about p {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            line-height: 1.9;
+            margin-top: 25px;
+        }
+        
+        /* ==== PROJECTS SECTION ==== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .project {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transition: left 0.3s ease;
+        }
+        
+        .project:hover {
+            background: var(--skill-bg);
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
+        }
+        
+        .project:hover::before {
+            left: 100%;
+        }
+        
+        .project h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .project-meta {
+            color: var(--text-meta);
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        
+        .project-tag {
+            display: inline-block;
+            background: var(--skill-bg);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-top: 10px;
+            border: 1px solid var(--accent);
+        }
+        
+        /* ==== SKILLS SECTION ==== */
+        .skills-container {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .skill-tag {
+            background: var(--skill-bg);
+            padding: 18px 16px;
+            border-radius: 10px;
+            text-align: center;
+            color: var(--accent);
+            font-weight: 600;
+            border: 2px solid var(--skill-bg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+        
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.4s ease;
+        }
+        
+        .skill-tag:hover {
+            background: var(--skill-bg);
+            border-color: var(--accent);
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+        
+        /* ==== CONTACT SECTION ==== */
+        #contact {
+            padding: 50px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border-top: 4px solid var(--accent);
+            text-align: center;
+        }
+        
+        #contact h2 {
+            margin-bottom: 30px;
+        }
+        
+        #contact > p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            background: var(--skill-bg);
+            border: 2px solid var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover svg {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            z-index: -1;
+            transition: left 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #0f1419;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.25);
+        }
+        
+        .social-links a:hover::before {
+            left: 0;
+        }
+        
+        html.light-mode .social-links a:hover {
+            color: #ffffff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-meta);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+        <h1>rumwru</h1>
+        <p class="tagline">Vibe Coder And Writer</p>
+        <nav>
+            <a data-section="about" class="nav-link active">About</a>
+            <a data-section="projects" class="nav-link">Projects</a>
+            <a data-section="skills" class="nav-link">Skills</a>
+            <a data-section="contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <div class="progress-indicator" id="progressIndicator"></div>
+        
+        <section id="about" class="active">
+            <h2>About</h2>
+            <p>I'm a developer and creator passionate about open-source projects and minimalist design. I work across multiple projects spanning web development, system tools, and creative applications. My expertise includes JavaScript, CSS, HTML, and full-stack development. I'm continuously learning and contributing to projects that solve real problems, from video downloaders to design systems and Linux customizations. Driven by curiosity and a vibe-first coding philosophy.</p>
+        </section>
+        
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project">
+                    <h3>Seal</h3>
+                    <p class="project-meta">@rumwru • Android • GPL-3.0</p>
+                    <p class="project-description">Video & Audio downloader for Android based on yt-dlp. Download content seamlessly with a modern mobile interface.</p>
+                    <span class="project-tag">Android</span>
+                    <span class="project-tag">yt-dlp</span>
+                </div>
+                <div class="project">
+                    <h3>Zenless Zone Zero Plymouth</h3>
+                    <p class="project-meta">@rumwru • Linux • Boot Animation</p>
+                    <p class="project-description">Beautiful Linux boot animation inspired by Zenless Zone Zero. Customize your system startup with stunning visuals.</p>
+                    <span class="project-tag">Linux</span>
+                    <span class="project-tag">Plymouth</span>
+                </div>
+                <div class="project">
+                    <h3>LooksOfficial</h3>
+                    <p class="project-meta">@rumwru • JavaScript • GPL-3.0</p>
+                    <p class="project-description">A creative JavaScript project showcasing interactive design patterns and modern web development techniques.</p>
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">Web</span>
+                </div>
+                <div class="project">
+                    <h3>PteroPanel</h3>
+                    <p class="project-meta">@PteroPanel • About Me</p>
+                    <p class="project-description">Script for managing PteroPanel Readme</p>
+                    <span class="project-tag">Management</span>
+                    <span class="project-tag">System</span>
+                </div>
+                <div class="project">
+                    <h3>GreeoneWeb</h3>
+                    <p class="project-meta">@PteroPanel • Web • CSS</p>
+                    <p class="project-description">Modern web interface built with HTML and CSS, featuring responsive design and elegant styling.</p>
+                    <span class="project-tag">HTML/CSS</span>
+                    <span class="project-tag">Responsive</span>
+                </div>
+                <div class="project">
+                    <h3>GreeoneDNS</h3>
+                    <p class="project-meta">@PteroPanel • DNS • HTML</p>
+                    <p class="project-description">DNS management interface with a clean, user-friendly design for easy domain configuration.</p>
+                    <span class="project-tag">DNS</span>
+                    <span class="project-tag">Admin</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-tag">HTML/CSS</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">React</div>
+                <div class="skill-tag">Node.js</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">UI/UX Design</div>
+                <div class="skill-tag">Git</div>
+                <div class="skill-tag">MongoDB</div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Let's collaborate on something amazing. Reach out via email or connect with me on social platforms.</p>
+            <div class="social-links">
+                <a href="mailto:admin@rumwru.my.id" title="Send me an email">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Email
+                </a>
+                <a href="https://linkedin.com" title="Connect on LinkedIn" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.437-.103.25-.129.599-.129.948v5.42h-3.554s.05-8.795 0-9.733h3.554v1.377c.43-.664 1.199-1.61 2.922-1.61 2.135 0 3.735 1.395 3.735 4.393l-.001 5.573zM5.337 8.855c-1.144 0-1.915-.759-1.915-1.71 0-.956.77-1.71 1.916-1.71 1.144 0 1.914.754 1.914 1.71 0 .951-.769 1.71-1.915 1.71zm1.575 11.597H3.762V9.574h3.15v10.878zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/rumwru" title="Check out my GitHub" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://id.wikipedia.org/wiki/Pengguna:Rumwru" title="Visit Wikipedia" target="_blank">
+                    <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/><path d="M 22 2 A 20 20 0 0 1 22 42 A 20 20 0 0 1 22 2" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><ellipse cx="22" cy="22" rx="20" ry="6" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="2" y1="22" x2="42" y2="22" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><text x="22" y="27" font-family="Georgia, serif" font-size="18" font-weight="bold" text-anchor="middle" fill="currentColor" opacity="0.8">W</text></svg>
+                    Wikipedia
+                </a>
+            </div>
+        </section>
+        
+        <div class="navigation-buttons">
+            <button class="nav-button" id="prevBtn">← Previous</button>
+            <button class="nav-button" id="nextBtn">Next →</button>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 rumwru. All rights reserved. • Built with passion & code</p>
+    </footer>
+    
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const sections = ['about', 'projects', 'skills', 'contact'];
+        let currentSectionIndex = 0;
+        
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            htmlElement.classList.add('light-mode');
+            themeToggle.textContent = '☀️';
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('light-mode');
+            
+            const isLightMode = htmlElement.classList.contains('light-mode');
+            localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+            
+            // Update button icon
+            themeToggle.textContent = isLightMode ? '☀️' : '🌙';
+        });
+        
+        // Initialize progress indicator
+        function initializeProgress() {
+            const indicator = document.getElementById('progressIndicator');
+            sections.forEach((section, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (index === 0 ? ' active' : '');
+                dot.addEventListener('click', () => showSection(index));
+                indicator.appendChild(dot);
+            });
+        }
+        
+        // Show section by index
+        function showSection(index) {
+            if (index < 0 || index >= sections.length) return;
+            
+            // Hide current section
+            const currentSection = document.getElementById(sections[currentSectionIndex]);
+            currentSection.classList.remove('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach((link, i) => {
+                link.classList.remove('active');
+                if (i === index) link.classList.add('active');
+            });
+            
+            // Update progress dots
+            document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === index) dot.classList.add('active');
+            });
+            
+            // Show new section
+            currentSectionIndex = index;
+            const newSection = document.getElementById(sections[index]);
+            newSection.classList.add('active');
+            
+            // Update button states
+            updateButtonStates();
+        }
+        
+        // Update button disabled states
+        function updateButtonStates() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentSectionIndex === 0;
+            nextBtn.disabled = currentSectionIndex === sections.length - 1;
+        }
+        
+        // Nav link click handlers
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('data-section');
+                const index = sections.indexOf(sectionId);
+                showSection(index);
+            });
+        });
+        
+        // Previous button
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSectionIndex > 0) {
+                showSection(currentSectionIndex - 1);
+            }
+        });
+        
+        // Next button
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentSectionIndex < sections.length - 1) {
+                showSection(currentSectionIndex + 1);
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') showSection(currentSectionIndex - 1);
+            if (e.key === 'ArrowRight') showSection(currentSectionIndex + 1);
+        });
+        
+        // Initialize Skills Grid Layout
+        function initializeSkillsGrid() {
+            const skillsContainer = document.querySelector('.skills-container');
+            const skillCount = skillsContainer.querySelectorAll('.skill-tag').length;
+            
+            // Find best factor pair (closest to square)
+            let bestCols = 1;
+            let bestDiff = skillCount;
+            
+            for (let cols = 1; cols <= skillCount; cols++) {
+                if (skillCount % cols === 0) {
+                    const rows = skillCount / cols;
+                    const diff = Math.abs(cols - rows);
+                    if (diff < bestDiff || (diff === bestDiff && cols > bestCols)) {
+                        bestDiff = diff;
+                        bestCols = cols;
+                    }
+                }
+            }
+            
+            // If divisible by 3, use 3 columns (as per original requirement)
+            if (skillCount % 3 === 0) {
+                bestCols = 3;
+            }
+            
+            skillsContainer.style.gridTemplateColumns = `repeat(${bestCols}, 1fr)`;
+        }
+        
+        // Initialize
+        initializeProgress();
+        updateButtonStates();
+        initializeSkillsGrid();
+    </script>
+</body>
+</html>
