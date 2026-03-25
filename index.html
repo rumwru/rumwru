@@ -16,6 +16,10 @@
             --border-color: #2a3f5f;
             --card-bg: rgba(0, 212, 255, 0.05);
             --skill-bg: rgba(0, 212, 255, 0.1);
+            --nav-bg: rgba(7, 17, 35, 0.72);
+            --nav-border: rgba(0, 212, 255, 0.35);
+            --nav-profile: radial-gradient(circle at 30% 30%, #00d4ff, #0078d4 55%, #011d31);
+            --nav-text: #e0e0e0;
         }
         
         html.light-mode {
@@ -29,6 +33,10 @@
             --border-color: #e0e5eb;
             --card-bg: rgba(0, 150, 200, 0.06);
             --skill-bg: rgba(0, 150, 200, 0.1);
+            --nav-bg: rgba(225, 236, 249, 0.24);
+            --nav-border: rgba(0, 120, 212, 0.25);
+            --nav-profile: radial-gradient(circle at 30% 30%, #4dc2ff, #48a0d3 55%, #cddff1);
+            --nav-text: #1f3a57;
         }
         
         * {
@@ -47,42 +55,54 @@
         }
         
         header {
-            padding: 80px 20px 60px;
+            padding: 22px 20px 16px;
             text-align: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 0;
             position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow: visible;
+            background: transparent;
         }
-        
+
         header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            display: none;
+        }
+
+        h1 {
+            display: block;
+            margin-bottom: 8px;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: lowercase;
+        }
+
+        .tagline {
+            display: block;
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            font-weight: 300;
         }
         
         .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: 2px solid var(--accent);
+            position: relative;
+            top: 0;
+            right: 0;
+            background: linear-gradient(110deg, rgba(0,212,255,0.25), rgba(0,120,212,0.35));
+            border: 1px solid var(--accent);
             color: var(--accent);
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-left: 12px;
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.45);
         }
         
         .theme-toggle:hover {
@@ -96,6 +116,7 @@
         }
         
         h1 {
+            display: none;
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 12px;
@@ -108,6 +129,7 @@
         }
         
         .tagline {
+            display: none;
             font-size: 1.2rem;
             color: var(--text-secondary);
             margin-bottom: 30px;
@@ -116,26 +138,176 @@
             animation: fadeInUp 0.8s ease 0.2s both;
         }
         
-        nav {
+        .top-nav {
+            width: 100%;
+            max-width: 100%;
+            margin-top: 24px;
             display: flex;
-            gap: 40px;
-            justify-content: center;
-            margin-top: 30px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: var(--nav-bg);
+            border: 1px solid var(--nav-border);
+            border-radius: 20px;
+            padding: 14px 24px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
             animation: fadeInUp 0.8s ease 0.4s both;
+            color: var(--nav-text);
+        }
+
+        
+        .brand {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: 0.14em;
+            text-transform: lowercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-name {
+            color: var(--accent);
+        }
+
+        .brand-vibe {
+            color: #ffffff;
         }
         
-        nav a {
+        .desktop-menu {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .desktop-menu a {
             text-decoration: none;
-            color: var(--text-primary);
+            color: #ffffff;
             font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             padding: 8px 0;
             border-bottom: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
             text-transform: uppercase;
             cursor: pointer;
+            position: relative;
+        }
+        
+        .desktop-menu a:hover,
+        .desktop-menu a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .desktop-menu a::after,
+        .desktop-menu a:hover::after,
+        .desktop-menu a.active::after {
+            display: none;
+        }
+        
+        .mobile-nav {
+            display: none;
+            width: 100%;
+            background: var(--nav-bg);
+            border: 1px solid var(--nav-border);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-top: 24px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+        }
+        
+        .mobile-brand {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .theme-toggle-mobile {
+            background: linear-gradient(110deg, rgba(0,212,255,0.25), rgba(0,120,212,0.35));
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.45);
+        }
+        
+        .theme-toggle-mobile:hover {
+            background: var(--accent);
+            color: #0f1419;
+            transform: scale(1.1);
+        }
+        
+        html.light-mode .theme-toggle-mobile:hover {
+            color: #ffffff;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .nav-button {
+            background: linear-gradient(110deg, rgba(0,212,255,0.15), rgba(0,120,212,0.25));
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .nav-button:hover:not(:disabled) {
+            background: var(--accent);
+            color: #0f1419;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
+        }
+        
+        html.light-mode .nav-button:hover:not(:disabled) {
+            color: #ffffff;
+        }
+        
+        .nav-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 768px) {
+            .navigation-buttons {
+                display: none;
+            }
+        }
+        
+        .profile-dot {
+            display: none;
+        }
+
+        nav:not(.desktop-menu) {
+            display: none;
         }
         
         nav a:hover {
@@ -174,6 +346,13 @@
             padding: 20px !important;
             background: transparent !important;
             border: none !important;
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+        }
+        
+        section.mobile-collapsed {
+            max-height: 65px;
         }
         
         section.mobile-collapsed > *:not(h2) {
@@ -183,35 +362,9 @@
         section h2 {
             cursor: default;
         }
-        
-        .progress-indicator {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        
-        .progress-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--border-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .progress-dot.active {
-            width: 30px;
-            border-radius: 5px;
-            background: var(--accent);
-        }
-        
+
         .navigation-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
+            display: none;
         }
         
         .nav-button {
@@ -543,13 +696,43 @@
             }
             
             h1 {
+                display: block;
                 font-size: 2.5rem;
             }
             
             .tagline {
+                display: block;
                 font-size: 1rem;
             }
             
+            .top-nav {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: flex;
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: auto;
+                background: transparent;
+                border: none;
+                padding: 0;
+                margin: 0;
+                box-shadow: none;
+                justify-content: flex-end;
+            }
+            
+            .mobile-brand {
+                display: none;
+            }
+            
+            #themeToggleMobile {
+                position: relative;
+                top: auto;
+                right: auto;
+            }
+
             nav {
                 display: none;
             }
@@ -574,15 +757,20 @@
             
             section h2 {
                 font-size: 1.5rem;
-                margin-bottom: 15px;
-                padding-bottom: 12px;
-                border-bottom: 2px solid var(--accent);
+                margin-bottom: 12px;
+                padding-bottom: 0;
+                border-bottom: none;
                 background: transparent;
                 cursor: pointer;
                 user-select: none;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                transition: opacity 0.2s ease;
+            }
+            
+            section h2:active {
+                opacity: 0.8;
             }
             
             section h2::after {
@@ -594,6 +782,11 @@
                 background: none;
                 margin-left: 10px;
                 transition: transform 0.3s ease;
+            }
+            
+            #about h2,
+            #contact h2 {
+                border-bottom: none;
             }
             
             section.mobile-collapsed h2::after {
@@ -696,20 +889,27 @@
 </head>
 <body>
     <header>
-        <button class="theme-toggle" id="themeToggle">🌙</button>
         <h1>rumwru</h1>
         <p class="tagline">Vibe Coder And Writer</p>
-        <nav>
-            <a data-section="about" class="nav-link active">About</a>
-            <a data-section="projects" class="nav-link">Projects</a>
-            <a data-section="skills" class="nav-link">Skills</a>
-            <a data-section="contact" class="nav-link">Contact</a>
-        </nav>
+
+        <div class="top-nav">
+            <div class="brand"><span class="brand-name">rumwru</span> | <span class="brand-vibe">vibe coder and writer</span></div>
+            <nav class="desktop-menu">
+                <a data-section="about" class="nav-link active">About</a>
+                <a data-section="projects" class="nav-link">Projects</a>
+                <a data-section="skills" class="nav-link">Skills</a>
+                <a data-section="contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+        
+        <div class="mobile-nav">
+            <div class="mobile-brand">vibe coder and writer</div>
+            <button class="theme-toggle-mobile" id="themeToggleMobile">🌙</button>
+        </div>
     </header>
     
     <main class="container">
-        <div class="progress-indicator" id="progressIndicator"></div>
-        
         <section id="about" class="active">
             <h2>About</h2>
             <p>I'm a developer and creator passionate about open-source projects and minimalist design. I work across multiple projects spanning web development, system tools, and creative applications. My expertise includes JavaScript, CSS, HTML, and full-stack development. I'm continuously learning and contributing to projects that solve real problems, from video downloaders to design systems and Linux customizations. Driven by curiosity and a vibe-first coding philosophy.</p>
@@ -821,6 +1021,7 @@
     
     <script>
         const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
         const htmlElement = document.documentElement;
         const sections = ['about', 'projects', 'skills', 'contact'];
         let currentSectionIndex = 0;
@@ -840,26 +1041,34 @@
         const savedTheme = localStorage.getItem('theme') || 'dark';
         if (savedTheme === 'light') {
             htmlElement.classList.add('light-mode');
-            themeToggle.textContent = '☀️';
+            if (themeToggle) themeToggle.textContent = '☀️';
+            if (themeToggleMobile) themeToggleMobile.textContent = '☀️';
         }
         
-        // Toggle theme on button click
-        themeToggle.addEventListener('click', () => {
-            htmlElement.classList.toggle('light-mode');
-            const isLightMode = htmlElement.classList.contains('light-mode');
-            localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-            themeToggle.textContent = isLightMode ? '☀️' : '🌙';
-        });
+        // Function to update both theme buttons
+        function updateThemeButtons(isLightMode) {
+            const emoji = isLightMode ? '☀️' : '🌙';
+            if (themeToggle) themeToggle.textContent = emoji;
+            if (themeToggleMobile) themeToggleMobile.textContent = emoji;
+        }
         
-        // Initialize progress indicator (desktop)
-        function initializeProgress() {
-            const indicator = document.getElementById('progressIndicator');
-            if (!indicator) return;
-            sections.forEach((section, index) => {
-                const dot = document.createElement('div');
-                dot.className = 'progress-dot' + (index === 0 ? ' active' : '');
-                dot.addEventListener('click', () => showSection(index));
-                indicator.appendChild(dot);
+        // Toggle theme on desktop button click
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                htmlElement.classList.toggle('light-mode');
+                const isLightMode = htmlElement.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                updateThemeButtons(isLightMode);
+            });
+        }
+        
+        // Toggle theme on mobile button click
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', () => {
+                htmlElement.classList.toggle('light-mode');
+                const isLightMode = htmlElement.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                updateThemeButtons(isLightMode);
             });
         }
         
@@ -875,25 +1084,9 @@
                 if (i === index) link.classList.add('active');
             });
             
-            document.querySelectorAll('.progress-dot').forEach((dot, i) => {
-                dot.classList.remove('active');
-                if (i === index) dot.classList.add('active');
-            });
-            
             currentSectionIndex = index;
             const newSection = document.getElementById(sections[index]);
             newSection.classList.add('active');
-            updateButtonStates();
-        }
-        
-        // Update button disabled states
-        function updateButtonStates() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            if (!prevBtn || !nextBtn) return;
-            
-            prevBtn.disabled = currentSectionIndex === 0;
-            nextBtn.disabled = currentSectionIndex === sections.length - 1;
         }
         
         // Nav link click handlers
@@ -920,22 +1113,34 @@
             });
         }
         
-        // Previous button
+        // Update button disabled states (desktop only)
+        function updateButtonStates() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (!prevBtn || !nextBtn) return;
+            
+            prevBtn.disabled = currentSectionIndex === 0;
+            nextBtn.disabled = currentSectionIndex === sections.length - 1;
+        }
+        
+        // Navigation button handlers
         const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
                 if (currentSectionIndex > 0) {
                     showSection(currentSectionIndex - 1);
+                    updateButtonStates();
                 }
             });
         }
         
-        // Next button
-        const nextBtn = document.getElementById('nextBtn');
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
                 if (currentSectionIndex < sections.length - 1) {
                     showSection(currentSectionIndex + 1);
+                    updateButtonStates();
                 }
             });
         }
@@ -943,8 +1148,14 @@
         // Keyboard navigation (desktop only)
         document.addEventListener('keydown', (e) => {
             if (!isMobileMode) {
-                if (e.key === 'ArrowLeft') showSection(currentSectionIndex - 1);
-                if (e.key === 'ArrowRight') showSection(currentSectionIndex + 1);
+                if (e.key === 'ArrowLeft' && currentSectionIndex > 0) {
+                    showSection(currentSectionIndex - 1);
+                    updateButtonStates();
+                }
+                if (e.key === 'ArrowRight' && currentSectionIndex < sections.length - 1) {
+                    showSection(currentSectionIndex + 1);
+                    updateButtonStates();
+                }
             }
         });
         
@@ -1022,9 +1233,8 @@
                 setupMobileCollapse();
             } else {
                 // Desktop mode: paginate sections
-                initializeProgress();
-                updateButtonStates();
                 showSection(0);
+                updateButtonStates();
             }
             initializeSkillsGrid();
             initializeSocialLinksGrid();
