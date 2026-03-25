@@ -413,12 +413,13 @@
             background: linear-gradient(90deg, var(--accent), transparent);
         }
         
-        /* ==== ABOUT SECTION ==== */
-        #about {
+        /* ==== SECTION CARD SHARED STYLE ==== */
+        #about, #projects, #skills, #contact {
             padding: 40px;
             background: var(--card-bg);
             border-radius: 12px;
-            border-left: 4px solid var(--accent);
+            border: 1px solid var(--border-color);
+            text-align: left;
         }
         
         #about p {
@@ -738,8 +739,25 @@
             }
             
             .container {
-                padding: 20px 10px;
+                padding: 20px 12px;
                 min-height: auto;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            section.mobile-visible {
+                width: 100%;
+                max-width: 100%;
+                margin: 8px 0;
+                box-sizing: border-box;
+            }
+            
+            section h2 {
+                width: 100%;
+                margin: 0;
+                padding-right: 8px;
+                padding-left: 0;
+                text-align: left;
             }
             
             .navigation-buttons {
@@ -797,22 +815,15 @@
                 transform: rotate(90deg);
             }
             
-            #about {
-                background: transparent;
-                border: none;
+            #about, #projects, #skills, #contact {
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
                 padding: 20px !important;
+                text-align: left;
             }
             
-            #about p {
-                font-size: 0.95rem;
-            }
-            
-            #contact {
-                background: transparent;
-                border: none;
-                padding: 20px !important;
-            }
-            
+            #about p,
             #contact > p {
                 font-size: 0.95rem;
             }
