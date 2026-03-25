@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -712,4 +711,547 @@
             
             .mobile-nav {
                 display: flex;
-                position:
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: auto;
+                background: transparent;
+                border: none;
+                padding: 0;
+                margin: 0;
+                box-shadow: none;
+                justify-content: flex-end;
+            }
+            
+            .mobile-brand {
+                display: none;
+            }
+            
+            #themeToggleMobile {
+                position: relative;
+                top: auto;
+                right: auto;
+            }
+
+            nav {
+                display: none;
+            }
+            
+            .container {
+                padding: 20px 12px;
+                min-height: auto;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            section.mobile-visible {
+                width: 100%;
+                max-width: 100%;
+                margin: 8px 0;
+                box-sizing: border-box;
+            }
+            
+            section h2 {
+                width: 100%;
+                margin: 0;
+                padding-right: 8px;
+                padding-left: 0;
+                text-align: left;
+            }
+            
+            .navigation-buttons {
+                display: none;
+            }
+            
+            .progress-indicator {
+                display: none;
+            }
+            
+            section.mobile-visible {
+                padding: 20px !important;
+                margin-bottom: 0;
+            }
+            
+            section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 12px;
+                padding-bottom: 0;
+                border-bottom: none;
+                background: transparent;
+                cursor: pointer;
+                user-select: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: opacity 0.2s ease;
+            }
+            
+            section h2:active {
+                opacity: 0.8;
+            }
+            
+            section h2::after {
+                content: '▶';
+                font-size: 0.6rem;
+                position: static;
+                width: auto;
+                height: auto;
+                background: none;
+                margin-left: 10px;
+                transition: transform 0.3s ease;
+            }
+            
+            #about h2,
+            #contact h2 {
+                border-bottom: none;
+            }
+            
+            section.mobile-collapsed h2::after {
+                content: '▶';
+            }
+            
+            section:not(.mobile-collapsed) h2::after {
+                transform: rotate(90deg);
+            }
+            
+            #about, #projects, #skills, #contact {
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 20px !important;
+                text-align: left;
+            }
+            
+            #about p,
+            #contact > p {
+                font-size: 0.95rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .project {
+                padding: 20px;
+            }
+            
+            .social-links {
+                gap: 10px;
+                max-width: 100%;
+            }
+            
+            .social-links a {
+                padding: 12px 16px;
+                min-height: 40px;
+                font-size: 0.8rem;
+            }
+            
+            .social-links a svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .skill-tag {
+                min-height: 50px;
+                padding: 12px 10px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 50px 15px 30px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            section.mobile-visible {
+                padding: 15px !important;
+            }
+            
+            section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .social-links {
+                gap: 8px;
+            }
+            
+            footer {
+                padding: 30px 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>rumwru</h1>
+        <p class="tagline">Vibe Coder And Writer</p>
+
+        <div class="top-nav">
+            <div class="brand"><span class="brand-name">rumwru</span> | <span class="brand-vibe">vibe coder and writer</span></div>
+            <nav class="desktop-menu">
+                <a data-section="about" class="nav-link active">About</a>
+                <a data-section="projects" class="nav-link">Projects</a>
+                <a data-section="skills" class="nav-link">Skills</a>
+                <a data-section="contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+        
+        <div class="mobile-nav">
+            <div class="mobile-brand">vibe coder and writer</div>
+            <button class="theme-toggle-mobile" id="themeToggleMobile">🌙</button>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section id="about" class="active">
+            <h2>About</h2>
+            <p>I'm a developer and creator passionate about open-source projects and minimalist design. I work across multiple projects spanning web development, system tools, and creative applications. My expertise includes JavaScript, CSS, HTML, and full-stack development. I'm continuously learning and contributing to projects that solve real problems, from video downloaders to design systems and Linux customizations. Driven by curiosity and a vibe-first coding philosophy.</p>
+        </section>
+        
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project">
+                    <h3>Seal</h3>
+                    <p class="project-meta">@rumwru • Android • GPL-3.0</p>
+                    <p class="project-description">Video & Audio downloader for Android based on yt-dlp. Download content seamlessly with a modern mobile interface.</p>
+                    <span class="project-tag">Android</span>
+                    <span class="project-tag">yt-dlp</span>
+                </div>
+                <div class="project">
+                    <h3>Zenless Zone Zero Plymouth</h3>
+                    <p class="project-meta">@rumwru • Linux • Boot Animation</p>
+                    <p class="project-description">Beautiful Linux boot animation inspired by Zenless Zone Zero. Customize your system startup with stunning visuals.</p>
+                    <span class="project-tag">Linux</span>
+                    <span class="project-tag">Plymouth</span>
+                </div>
+                <div class="project">
+                    <h3>LooksOfficial</h3>
+                    <p class="project-meta">@rumwru • JavaScript • GPL-3.0</p>
+                    <p class="project-description">A creative JavaScript project showcasing interactive design patterns and modern web development techniques.</p>
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">Web</span>
+                </div>
+                <div class="project">
+                    <h3>PteroPanel</h3>
+                    <p class="project-meta">@PteroPanel • About Me</p>
+                    <p class="project-description">Script for managing PteroPanel Readme</p>
+                    <span class="project-tag">Management</span>
+                    <span class="project-tag">System</span>
+                </div>
+                <div class="project">
+                    <h3>GreeoneWeb</h3>
+                    <p class="project-meta">@PteroPanel • Web • CSS</p>
+                    <p class="project-description">Modern web interface built with HTML and CSS, featuring responsive design and elegant styling.</p>
+                    <span class="project-tag">HTML/CSS</span>
+                    <span class="project-tag">Responsive</span>
+                </div>
+                <div class="project">
+                    <h3>GreeoneDNS</h3>
+                    <p class="project-meta">@PteroPanel • DNS • HTML</p>
+                    <p class="project-description">DNS management interface with a clean, user-friendly design for easy domain configuration.</p>
+                    <span class="project-tag">DNS</span>
+                    <span class="project-tag">Admin</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-tag">HTML/CSS</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">PraboGo</div>
+                <div class="skill-tag">Gib.Run</div>
+                <div class="skill-tag">Anis C++</div>
+                <div class="skill-tag">JokoUI</div>
+                <div class="skill-tag">Git</div>
+                <div class="skill-tag">SawitDB</div>
+                <div class="skill-tag">AntekAsync</div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Let's collaborate on something amazing. Reach out via email or connect with me on social platforms.</p>
+            <div class="social-links">
+                <a href="mailto:admin@rumwru.my.id" title="Send me an email">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Email
+                </a>
+                <a href="https://linkedin.com/in/rayyan-radhitya-utomo-65ab3636b" title="Connect on LinkedIn" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.437-.103.25-.129.599-.129.948v5.42h-3.554s.05-8.795 0-9.733h3.554v1.377c.43-.664 1.199-1.61 2.922-1.61 2.135 0 3.735 1.395 3.735 4.393l-.001 5.573zM5.337 8.855c-1.144 0-1.915-.759-1.915-1.71 0-.956.77-1.71 1.916-1.71 1.144 0 1.914.754 1.914 1.71 0 .951-.769 1.71-1.915 1.71zm1.575 11.597H3.762V9.574h3.15v10.878zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/rumwru" title="Check out my GitHub" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://id.wikipedia.org/wiki/Pengguna:Rumwru" title="Visit Wikipedia" target="_blank">
+                    <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/><path d="M 22 2 A 20 20 0 0 1 22 42 A 20 20 0 0 1 22 2" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><ellipse cx="22" cy="22" rx="20" ry="6" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="2" y1="22" x2="42" y2="22" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><text x="22" y="27" font-family="Georgia, serif" font-size="18" font-weight="bold" text-anchor="middle" fill="currentColor" opacity="0.8">W</text></svg>
+                    Wikipedia
+                </a>
+                <a href="https://instagram.com/rumwru" title="Follow on Instagram" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.117.626c-.89.344-1.657.882-2.242 1.466-.585.585-1.122 1.353-1.466 2.242-.293.788-.494 1.659-.626 2.937C.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.626 2.936.344.89.882 1.657 1.466 2.242.585.585 1.353 1.122 2.242 1.466.788.293 1.659.494 2.937.626C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.261 2.936-.626.89-.344 1.657-.882 2.242-1.466.585-.585 1.122-1.353 1.466-2.242.293-.788.494-1.659.626-2.937.057-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.261-2.148-.626-2.936-.344-.89-.882-1.657-1.466-2.242-.585-.585-1.353-1.122-2.242-1.466-.788-.293-1.659-.494-2.937-.626C15.667.015 15.26 0 12 0zm0 2.16c3.203 0 3.585.009 4.849.07 1.171.055 1.805.249 2.227.415.562.217.96.477 1.382.899.422.422.682.82.899 1.382.166.422.36 1.056.415 2.227.061 1.264.07 1.646.07 4.849s-.009 3.585-.07 4.849c-.055 1.171-.249 1.805-.415 2.227-.217.562-.477.96-.899 1.382-.422.422-.82.682-1.382.899-.422.166-1.056.36-2.227.415-1.264.061-1.646.07-4.849.07s-3.585-.009-4.849-.07c-1.171-.055-1.805-.249-2.227-.415-.562-.217-.96-.477-1.382-.899-.422-.422-.682-.82-.899-1.382-.166-.422-.36-1.056-.415-2.227-.061-1.264-.07-1.646-.07-4.849s.009-3.585.07-4.849c.055-1.171.249-1.805.415-2.227.217-.562.477-.96.899-1.382.422-.422.82-.682 1.382-.899.422-.166 1.056-.36 2.227-.415 1.264-.061 1.646-.07 4.849-.07zm0 3.678a5.162 5.162 0 100 10.324 5.162 5.162 0 000-10.324zm0 8.164a3.002 3.002 0 110-6.004 3.002 3.002 0 010 6.004zm5.884-8.346a1.206 1.206 0 100-2.412 1.206 1.206 0 000 2.412z" fill="currentColor"/></svg>
+                    Instagram
+                </a>
+                <a href="https://x.com/rumwru" title="Follow on X" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.21-6.817L2.896 21.75H-.306l7.73-8.835L0 2.25h6.826l4.875 6.434 5.543-6.434zM17.009 18.46h1.829L5.293 3.75H3.622l13.387 14.71z" fill="currentColor"/></svg>
+                    X
+                </a>
+            </div>
+        </section>
+        
+        <div class="navigation-buttons">
+            <button class="nav-button" id="prevBtn">← Previous</button>
+            <button class="nav-button" id="nextBtn">Next →</button>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 rumwru. All rights reserved. • Built with passion & code</p>
+    </footer>
+    
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        const htmlElement = document.documentElement;
+        const sections = ['about', 'projects', 'skills', 'contact'];
+        let currentSectionIndex = 0;
+        let isMobileMode = window.innerWidth <= 768;
+        
+        // Detect mobile mode on resize
+        window.addEventListener('resize', () => {
+            const wasMobileMode = isMobileMode;
+            isMobileMode = window.innerWidth <= 768;
+            
+            if (wasMobileMode !== isMobileMode) {
+                location.reload();
+            }
+        });
+        
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            htmlElement.classList.add('light-mode');
+            if (themeToggle) themeToggle.textContent = '☀️';
+            if (themeToggleMobile) themeToggleMobile.textContent = '☀️';
+        }
+        
+        // Function to update both theme buttons
+        function updateThemeButtons(isLightMode) {
+            const emoji = isLightMode ? '☀️' : '🌙';
+            if (themeToggle) themeToggle.textContent = emoji;
+            if (themeToggleMobile) themeToggleMobile.textContent = emoji;
+        }
+        
+        // Toggle theme on desktop button click
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                htmlElement.classList.toggle('light-mode');
+                const isLightMode = htmlElement.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                updateThemeButtons(isLightMode);
+            });
+        }
+        
+        // Toggle theme on mobile button click
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', () => {
+                htmlElement.classList.toggle('light-mode');
+                const isLightMode = htmlElement.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                updateThemeButtons(isLightMode);
+            });
+        }
+        
+        // Show section by index (desktop)
+        function showSection(index) {
+            if (index < 0 || index >= sections.length) return;
+            
+            const currentSection = document.getElementById(sections[currentSectionIndex]);
+            currentSection.classList.remove('active');
+            
+            document.querySelectorAll('.nav-link').forEach((link, i) => {
+                link.classList.remove('active');
+                if (i === index) link.classList.add('active');
+            });
+            
+            currentSectionIndex = index;
+            const newSection = document.getElementById(sections[index]);
+            newSection.classList.add('active');
+        }
+        
+        // Nav link click handlers
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('data-section');
+                const index = sections.indexOf(sectionId);
+                showSection(index);
+            });
+        });
+        
+        // Mobile: Toggle section collapse/expand
+        function setupMobileCollapse() {
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const heading = section.querySelector('h2');
+                
+                if (heading) {
+                    heading.addEventListener('click', () => {
+                        section.classList.toggle('mobile-collapsed');
+                    });
+                }
+            });
+        }
+        
+        // Update button disabled states (desktop only)
+        function updateButtonStates() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (!prevBtn || !nextBtn) return;
+            
+            prevBtn.disabled = currentSectionIndex === 0;
+            nextBtn.disabled = currentSectionIndex === sections.length - 1;
+        }
+        
+        // Navigation button handlers
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentSectionIndex > 0) {
+                    showSection(currentSectionIndex - 1);
+                    updateButtonStates();
+                }
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentSectionIndex < sections.length - 1) {
+                    showSection(currentSectionIndex + 1);
+                    updateButtonStates();
+                }
+            });
+        }
+        
+        // Keyboard navigation (desktop only)
+        document.addEventListener('keydown', (e) => {
+            if (!isMobileMode) {
+                if (e.key === 'ArrowLeft' && currentSectionIndex > 0) {
+                    showSection(currentSectionIndex - 1);
+                    updateButtonStates();
+                }
+                if (e.key === 'ArrowRight' && currentSectionIndex < sections.length - 1) {
+                    showSection(currentSectionIndex + 1);
+                    updateButtonStates();
+                }
+            }
+        });
+        
+        // Initialize Social Links Grid Layout
+        function initializeSocialLinksGrid() {
+            const socialLinks = document.querySelector('.social-links');
+            if (!socialLinks) return;
+            
+            const linkCount = socialLinks.querySelectorAll('a').length;
+            let bestCols = 1;
+            let bestDiff = linkCount;
+            
+            for (let cols = 1; cols <= linkCount; cols++) {
+                if (linkCount % cols === 0) {
+                    const rows = linkCount / cols;
+                    const diff = Math.abs(cols - rows);
+                    if (diff < bestDiff || (diff === bestDiff && cols > bestCols)) {
+                        bestDiff = diff;
+                        bestCols = cols;
+                    }
+                }
+            }
+            
+            if (linkCount % 3 === 0) {
+                bestCols = 3;
+            }
+            
+            if (isMobileMode && bestCols > 2) {
+                bestCols = 2;
+            }
+            
+            socialLinks.style.gridTemplateColumns = `repeat(${bestCols}, 1fr)`;
+        }
+        
+        // Initialize Skills Grid Layout
+        function initializeSkillsGrid() {
+            const skillsContainer = document.querySelector('.skills-container');
+            const skillCount = skillsContainer.querySelectorAll('.skill-tag').length;
+            
+            let bestCols = 1;
+            let bestDiff = skillCount;
+            
+            for (let cols = 1; cols <= skillCount; cols++) {
+                if (skillCount % cols === 0) {
+                    const rows = skillCount / cols;
+                    const diff = Math.abs(cols - rows);
+                    if (diff < bestDiff || (diff === bestDiff && cols > bestCols)) {
+                        bestDiff = diff;
+                        bestCols = cols;
+                    }
+                }
+            }
+            
+            if (skillCount % 3 === 0) {
+                bestCols = 3;
+            }
+            
+            if (isMobileMode && bestCols > 2) {
+                bestCols = 2;
+            }
+            
+            skillsContainer.style.gridTemplateColumns = `repeat(${bestCols}, 1fr)`;
+        }
+        
+        // Initialize layout
+        function initializeLayout() {
+            if (isMobileMode) {
+                // Mobile mode: show all sections stacked but COLLAPSED
+                sections.forEach(section => {
+                    const el = document.getElementById(section);
+                    el.classList.add('mobile-visible');
+                    el.classList.add('mobile-collapsed');
+                    el.classList.remove('active');
+                });
+                setupMobileCollapse();
+            } else {
+                // Desktop mode: paginate sections
+                showSection(0);
+                updateButtonStates();
+            }
+            initializeSkillsGrid();
+            initializeSocialLinksGrid();
+        }
+        
+        // Initialize
+        initializeLayout();
+    </script>
+</body>
+</html>
